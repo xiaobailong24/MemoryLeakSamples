@@ -16,21 +16,15 @@ public class SingleDemo {
         this.context = context;
     }
 
-    public static synchronized SingleDemo getInstance(Context context)
-    {
-        if(singleDemo==null)
-        {
-            singleDemo=new SingleDemo(context);
-        }
+    public static synchronized SingleDemo getInstance(Context context) {
+        if (singleDemo == null)
+            singleDemo = new SingleDemo(context);
         return singleDemo;
     }
 
     //释放掉由于引用的context
-    public void unRegister(Context context)
-    {
-        if(this.context==context)
-        {
-            this.context=null;
-        }
+    public void unRegister(Context context) {
+        if (this.context == context)
+            this.context = null;
     }
 }

@@ -18,7 +18,7 @@ import android.widget.Toast;
  * Date   : 17/9/7
  */
 
-public class LeakFixActivvity extends Activity implements View.OnClickListener {
+public class LeakFixActivity extends Activity implements View.OnClickListener {
 
     // FIXED: remove static keywords
     TextView staticView;
@@ -56,13 +56,17 @@ public class LeakFixActivvity extends Activity implements View.OnClickListener {
         super.onDestroy();
 
         // FIXED: unregister it onDestroy
-        single.unRegister(this);
+        if (single != null)
+            single.unRegister(this);
         // FIXED: kill the thread in activity onDestroy
-        mThread.interrupt();
+        if (mThread != null)
+            mThread.interrupt();
         // FIXED: remove callback in activity onDestroy
         mLeakyHandler.removeCallbacks(myRunnable);
+
         // FIXED: should cancel the task in activity onDestroy()
-        doNothingTask.cancel(true);
+        if (doNothingTask != null)
+            doNothingTask.cancel(true);
 
     }
 
@@ -86,27 +90,21 @@ public class LeakFixActivvity extends Activity implements View.OnClickListener {
 
     private void leakSingleton() {
         single = SingleDemo.getInstance(this);
-        Toast.makeText(this,"单例context泄漏------修复",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "单例context泄漏------修复", Toast.LENGTH_SHORT).show();
     }
 
     private void leakStatic() {
+        staticView = new TextView(LeakFixActivity.this);
 
-        staticView = new TextView(LeakFixActivvity.this);
-
-        if (staticActivity == null) {
+        if (staticActivity == null)
             staticActivity = this;
-        }
-        Toast.makeText(this,"static泄漏------修复",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "static泄漏------修复", Toast.LENGTH_SHORT).show();
     }
 
     private void leakStaticInnerClass() {
-        if (someInnerClass == null) {
+        if (someInnerClass == null)
             someInnerClass = new SomeInnerClass();
-        }
-        Toast.makeText(this,"内部类调用泄漏------修复",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "内部类调用泄漏------修复", Toast.LENGTH_SHORT).show();
     }
 
     private void leakThread() {
@@ -120,8 +118,7 @@ public class LeakFixActivvity extends Activity implements View.OnClickListener {
         //AsyncTask
         doNothingTask = new DoNothingTask();
         doNothingTask.execute();
-        Toast.makeText(this,"线程调用泄漏------修复",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "线程调用泄漏------修复", Toast.LENGTH_SHORT).show();
     }
 
 

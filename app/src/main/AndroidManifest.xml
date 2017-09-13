@@ -17,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LeakActivvity"/>
-        <activity android:name=".LeakFixActivvity"/>
+        <activity android:name=".LeakActivity"/>
+        <activity android:name=".LeakFixActivity"/>
     </application>
 
 </manifest>

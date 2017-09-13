@@ -15,13 +15,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.leak).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,LeakActivvity.class));
+                startActivity(new Intent(MainActivity.this,LeakActivity.class));
             }
         });
         findViewById(R.id.leak_fix).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,LeakFixActivvity.class));
+                startActivity(new Intent(MainActivity.this,LeakFixActivity.class));
             }
         });
     }

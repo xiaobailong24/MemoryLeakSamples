@@ -12,15 +12,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Description :
  * Author : jzp
  * Date   : 17/9/7
  */
 
-public class LeakActivvity extends Activity implements View.OnClickListener {
+public class LeakActivity extends Activity implements View.OnClickListener {
 
     //static
     static TextView staticView;
@@ -72,25 +70,24 @@ public class LeakActivvity extends Activity implements View.OnClickListener {
 
     private void leakSingleton() {
         single = SingleDemo.getInstance(this);
-        Toast.makeText(this,"单例context泄漏",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "单例context泄漏", Toast.LENGTH_SHORT).show();
     }
 
     private void leakStatic() {
 
-        staticView = new TextView(LeakActivvity.this);
+        staticView = new TextView(LeakActivity.this);
 
-        if (staticActivity == null) {
+        if (staticActivity == null)
             staticActivity = this;
-        }
 
-        Toast.makeText(this,"static泄漏",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "static泄漏", Toast.LENGTH_SHORT).show();
     }
 
     private void leakStaticInnerClass() {
         if (someInnerClass == null) {
             someInnerClass = new SomeInnerClass();
         }
-        Toast.makeText(this,"内部类调用泄漏",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "内部类调用泄漏", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -119,7 +116,7 @@ public class LeakActivvity extends Activity implements View.OnClickListener {
             }
         }.execute();
 
-        Toast.makeText(this,"线程调用泄漏",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "线程调用泄漏", Toast.LENGTH_SHORT).show();
 
     }
 
